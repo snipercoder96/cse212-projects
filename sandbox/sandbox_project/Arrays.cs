@@ -1,3 +1,4 @@
+using System.Linq;
 public static class Arrays
 {
     /// <summary>
@@ -6,6 +7,11 @@ public static class Arrays
     /// integer greater than 0.
     /// </summary>
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
+    public static void Run()
+    {
+        double[] array = MultiplesOf(3, 5);
+        Console.WriteLine("<double> {" + string.Join(", ", array) + "}");
+    }
     public static double[] MultiplesOf(double number, int length)
     {
         // TODO Problem 1 Start
@@ -70,6 +76,7 @@ public static class Arrays
         }
 
         Console.WriteLine("<List> {" + string.Join(", ", rotatedList) + "}");
-
+        
     }
 }
+

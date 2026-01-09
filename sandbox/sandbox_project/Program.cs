@@ -7,7 +7,12 @@ public class Program
         // This project is here for you to use as a "Sandbox" to play around
         // with any code or ideas you have that do not directly apply to
         // one of your projects.
+        Arrays.Run();
 
-        Console.WriteLine("Hello Sandbox World!");
+        Console.WriteLine();
+
+        Console.WriteLine("================ Rotate list ======================");
+        List<int> list = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        Arrays.RotateListRight( list, 1);
     }
 }

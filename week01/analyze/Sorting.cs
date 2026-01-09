@@ -14,4 +14,6 @@
             }
         }
     }
+
+    // O(n^2) is the big O notation
 }
