@@ -1,4 +1,3 @@
-using System.Linq;
 public static class Arrays
 {
     /// <summary>
@@ -7,11 +6,6 @@ public static class Arrays
     /// integer greater than 0.
     /// </summary>
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
-    public static void Run()
-    {
-        double[] array = MultiplesOf(3, 5);
-        Console.WriteLine("<double> {" + string.Join(", ", array) + "}");
-    }
     public static double[] MultiplesOf(double number, int length)
     {
         // TODO Problem 1 Start
@@ -56,27 +50,29 @@ public static class Arrays
 
         /*
         Solution:
-            - create a variable named rotatedList
-            - loop through using the for loop : int using the data.Count counter
-            - Inside a loop create 2 variables that return a list of skippedList (takes the last n of elements)
-            - Creaate another variable called remainingList that takes a list of elements subtract data length from the amount
-            - (use Linq ) for slicing → .TakeLast(amount).ToList(); the data list
-            - replace the current List with the concatenation (using LINQ → list1.Concat(list2).ToList()) of the kept part and the skipped part.
-            - show the list to the console and use Join seperated by the comma
+            - Test edge cases, if the data is empty, return nothing
+            - Normalize the amount (avoid rotating more than needed)
+            - Slice the list into two parts (one that will contain the skipped and the remaining)
+            - The skipped list will return a list
+            - Take the remaining list and concatenate with the skipped list
+            - Output the result
         */
 
-        List<int> rotatedList = new List<int>();
+        if (data == null || data.Count == 0) return; 
+         
+        amount = amount % data.Count; 
 
-        for (int i = 0; i < data.Count; i++)
-        {
-            List<int> skippedList = data.TakeLast(amount).ToList();
-            List<int> remainingList = data.Take(data.Count - amount).ToList();
-
-            rotatedList = skippedList.Concat(remainingList).ToList();
-        }
-
-        Console.WriteLine("<List> {" + string.Join(", ", rotatedList) + "}");
+        List<int> skippedList = data.TakeLast(amount).ToList();
         
+        List<int> remainingList = data.Take(data.Count - amount).ToList();
+
+        List<int> rotatedList = skippedList.Concat(remainingList).ToList();
+
+        data.Clear(); data.AddRange(rotatedList); 
+        
+        Console.WriteLine("==================== Rotated List =======================");
+        Console.WriteLine("<List> {" + string.Join(", ", data) + "}");
+
+    
     }
 }
-
