@@ -10,7 +10,7 @@
                 if (stack.Count < 2)
                     throw new ApplicationException("Invalid Case 1!");
 
-                var op2 = stack.Pop();
+                var op2 = stack.Pop(); 
                 var op1 = stack.Pop();
                 float res;
                 if (item == "+") {

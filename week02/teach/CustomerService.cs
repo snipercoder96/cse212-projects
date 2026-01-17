@@ -3,7 +3,8 @@
 /// added and allows customers to be serviced.
 /// </summary>
 public class CustomerService {
-    public static void Run() {
+    public static void Run()
+    {
         // Example code to see what's in the customer service queue:
         // var cs = new CustomerService(10);
         // Console.WriteLine(cs);
@@ -11,25 +12,50 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Add customers until max size is reached
+        // Expected Result: Queue should contain 3 customers
         Console.WriteLine("Test 1");
-
-        // Defect(s) Found: 
-
+        var cs1 = new CustomerService(3);
+        cs1._queue.Add(new CustomerService.Customer("Alice", "A001", "Login issue"));
+        cs1._queue.Add(new CustomerService.Customer("Bob", "B002", "Payment failed"));
+        cs1._queue.Add(new CustomerService.Customer("Charlie", "C003", "Password reset"));
+        Console.WriteLine(cs1);
+        // Defect(s) Found: Condition in AddNewCustomer uses > instead of >=, allowing one extra
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Serve a customer from the queue
+        // Expected Result: First customer removed, next customer printed
         Console.WriteLine("Test 2");
-
-        // Defect(s) Found: 
-
+        var cs2 = new CustomerService(5);
+        cs2._queue.Add(new CustomerService.Customer("Dave", "D004", "Account locked"));
+        cs2._queue.Add(new CustomerService.Customer("Eve", "E005", "Billing error"));
+        cs2.ServeCustomer();
+        Console.WriteLine(cs2);
+        // Defect(s) Found: ServeCustomer removes index 0 then tries to access index 0 again
         Console.WriteLine("=================");
 
-        // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario: Initialize with invalid max size
+        // Expected Result: Default max size of 10 applied
+        Console.WriteLine("Test 3");
+        var cs3 = new CustomerService(0);
+        Console.WriteLine(cs3);
+        // Defect(s) Found: None
+        Console.WriteLine("=================");
+
+        // Test 4
+        // Scenario: ToString on empty queue
+        // Expected Result: size=0 max_size=10 => 
+        Console.WriteLine("Test 4");
+        var cs4 = new CustomerService(10);
+        Console.WriteLine(cs4);
+        // Defect(s) Found: None
+        Console.WriteLine("=================");
     }
+
+
+
 
     private readonly List<Customer> _queue = new();
     private readonly int _maxSize;
