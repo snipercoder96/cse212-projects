@@ -29,5 +29,41 @@
     /// <param name="numbers">array of integers</param>
     private static void DisplaySumPairs(int[] numbers) {
         // TODO Problem 2 - This should print pairs of numbers in the given array
+
+
+        /*
+        How can you solve the problem using a set data structure?
+        - We can solve the problem in multiple ways, the first way is the time complexity of O(n),
+        instead of O(n^2) we could approach a set, thus as mentioned earlier, this reduces duplication,
+        making performance way faster and optimized.
+
+        Solution:
+        - create target variable equal to 10
+        - create complement variable that will subtraact 10 from its actual value(currentNumber) 
+            ( done inside the loop)
+        - create a set variable (name it according to meaningfulness)
+        - iterate through the numbers using for loop
+        - if complement equals target
+        - Show the current number and complement to the console
+        - add the complement variable to the set
+   
+        */
+
+        int target = 10;
+        var pairedNumbers = new HashSet<int>();
+
+        for (int i = 0; i < numbers.Length; ++i)
+        {
+            int currentNumber = numbers[i];
+            int complement = target - currentNumber;
+
+            if (pairedNumbers.Contains(complement))
+            {
+                Console.WriteLine($"{currentNumber} {complement}");
+            }
+            pairedNumbers.Add(currentNumber);
+        }
+        
+
     }
 }

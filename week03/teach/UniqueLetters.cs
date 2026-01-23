@@ -14,6 +14,20 @@
     /// <param name="text">Text to check for duplicate letters</param>
     /// <returns>true if all letters are unique, otherwise false</returns>
     private static bool AreUniqueLetters(string text) {
+
+        /*
+        How can unique letter method be written with O(n) performance using a set?
+        - By review of the weeks lesson, the alternative of using a set is useful because it intorduces
+        deduplication(removal of duplicates) and this also creates a huge improvement on performance because it is O(n)
+
+        Solution:
+        - We need to first create a set and name it anything meaningful
+        - We need to loop throught the text since this is a list of words O(n)
+        - if a letter is repeating return nothing, else just add the word to the set as this will be O(1) time
+        */
+
+
+
         // TODO Problem 1 - Replace the O(n^2) algorithm to use sets and O(n) efficiency
         for (var i = 0; i < text.Length; ++i) {
             for (var j = 0; j < text.Length; ++j) {
