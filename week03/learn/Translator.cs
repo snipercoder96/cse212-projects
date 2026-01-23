@@ -25,6 +25,12 @@ public class Translator
     public void AddWord(string fromWord, string toWord)
     {
         // ADD YOUR CODE HERE
+        /*
+        Solution: 
+        - add the values of the fromWord and german toWord in the dictionarty
+        */
+        _words[fromWord] = toWord;
+
     }
 
     /// <summary>
@@ -35,6 +41,19 @@ public class Translator
     public string Translate(string fromWord)
     {
         // ADD YOUR CODE HERE
-        return "";
+        /*
+        Solution:
+        - Check if the word in the dictionary contains the key from word
+        - if it exists return _words[fromWord], otherwise return "???"
+        */
+        if (_words.ContainsKey(fromWord))
+        {
+            return _words[fromWord];
+        }
+        else
+        {
+            return "???";
+        }
+        
     }
 }
