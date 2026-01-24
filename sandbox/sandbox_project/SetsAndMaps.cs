@@ -26,36 +26,33 @@ public static class SetsAndMaps
         Solution:
         - Create and intialize a set, also create a list of pairs
         - Loop throught the array words
-        - create a variable with a new string that reverses a word and converts to an array
-        - otherwise just add the word to the set 
-        */
+        - get the first character and second character of the word, and store them in a variable
+        - check if the first char is equal to the second one, then continue
+        - and if the set contains the reversed order, then add the pairs together with the reversed word 
+            and the word list
+        - otherwise just add the word to the set */
 
         var wordsReversed = new HashSet<string>();
         var pairs = new List<string>();
 
-        foreach (var word in words)
+        for (int i = 0; i < words.Length; i++)
         {
-            string reversed;
+            string firstWord = words[i][0].ToString();
+            string secondWord = words[i][1].ToString(); 
+            string reversed = secondWord + firstWord;
 
-            if (word.Length == 2)
+            if (firstWord == secondWord)
             {
-                reversed = word[1].ToString() + word[0].ToString();
-
-            }
-            else
-            {
-                reversed = new string(word.Reverse().ToArray());
+                continue; 
             }
 
-            if (word == reversed) continue;
-            
             if (wordsReversed.Contains(reversed))
             {
-                pairs.Add(word + " & " + reversed);
+                pairs.Add(reversed + " & " + words[i]);
             }
             else
             {
-                wordsReversed.Add(word);
+                wordsReversed.Add(words[i]);
             }
         }
         return pairs.ToArray();
@@ -85,7 +82,7 @@ public static class SetsAndMaps
             - Split the line into fields
             */
             var degree = fields[3];
-
+            
 
             if (degrees.Keys.Contains(degree))
             {
@@ -95,8 +92,9 @@ public static class SetsAndMaps
             {
                 degrees[degree] = 1;
             }
-
+            
         }
+
         return degrees;
     }
 
@@ -129,13 +127,16 @@ public static class SetsAndMaps
         - Sort out the 2 varaibles
         - if false return the new sorted variables 1 and 2
         */
-        word1 = word1.ToLower().Replace(" ", "");
-        word2 = word2.ToLower().Replace(" ", "");
+
 
         if (word1.Length != word2.Length)
         {
             return false;
         }
+
+        word1 = word1.ToLower();
+        word2 = word2.ToLower();
+
         var word1Arr = word1.ToCharArray();
         var word2Arr = word2.ToCharArray();
 
