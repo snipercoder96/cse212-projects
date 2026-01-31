@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Transactions;
 
 public class LinkedList : IEnumerable<int>
 {
@@ -33,6 +34,33 @@ public class LinkedList : IEnumerable<int>
     public void InsertTail(int value)
     {
         // TODO Problem 1
+
+        /*
+        Solution:
+        - create a newNode for inserting towards the end
+        - use a loop that checks if the next head isnt null
+        - if it is null, add a newNode
+        - the next tail should point to the new node
+        - the new node should point to the tail node
+        - the newnode should be equal to the tail
+        */
+
+        Node newNode = new(value);
+
+        if (_head is null)
+        {
+            _head = newNode;
+        }
+        else
+        {
+            Node current = _head;
+            while (current.Next != null)
+            {
+                current = current.Next;
+            }
+            current.Next = newNode; 
+            newNode.Prev = current;
+        }
     }
 
 
@@ -65,6 +93,24 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
+        /*
+        Solution:
+        - Check if the head equals the tail, if so, then set the head and tail to null
+        - otherwise get the previous tail (variable) to be equal the previous tail
+        - then the next previous tail to be set to null 
+        - Finally, the tail to be set to be eqaul to the previous tail
+          */
+
+        if (_head == _tail)
+        {
+            _head = null;
+            _tail = null;
+        } 
+        else { 
+            Node prevTail = _tail.Prev; 
+            prevTail.Next = null;
+            _tail = prevTail;
+        }
     }
 
     /// <summary>
@@ -109,6 +155,46 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        /*
+        Solution:
+        - First store the head in a varivable for looping
+        - loop throughout the nodes and set a check so it isnt null
+        - if the check isnt null and if the value equals the head, call the RemoveHead() method
+        - else if the current value equals the tail, remove the tail using the RemoveTail() method
+        - otherwise if both the casesof the head and tail doesnt call, create varaibles
+          containing the previous node and next nodes
+        - set the previous node.next equal to the next node, and set the next node.previous to the previous node
+        - return after removing the first match
+        - current must be equal to the next node
+        */
+
+        Node current = _head;
+
+        while (current != null)
+        {
+            if (current.Data == value)
+            {
+
+                if (current == _head)
+                {
+                    RemoveHead();
+                } else if (current == _tail){
+                    RemoveTail();
+                }
+                else
+                {
+                    Node prevNode = current.Prev;
+                    Node nextNode = current.Next;
+
+                    prevNode.Next = nextNode;
+                    nextNode.Prev = prevNode;
+                }
+                return;
+
+            }
+
+            current = current.Next;  
+        }
     }
 
     /// <summary>
@@ -117,6 +203,31 @@ public class LinkedList : IEnumerable<int>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+        /*
+        Solution:
+        - set the head variable to be equal to the  curret for looping
+        - first check if the linked list is empty, if so, add the head and tail to be null
+        - loop throught the linked list to check if its not equal to null
+        - if the current data equals the old value, reset the current data to be equal to the new value
+        - otherwise get the next node 
+        */
+
+        Node current = _head;
+
+        if (_head == null) return;
+        
+
+        while (current != null)
+        {
+            if (current.Data == oldValue)
+            {
+                current.Data = newValue;
+                return;
+            }
+
+            current = current.Next;
+        }
+
     }
 
     /// <summary>
@@ -147,7 +258,20 @@ public class LinkedList : IEnumerable<int>
     public IEnumerable Reverse()
     {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        /*
+        Solution:
+        - create a varaibel containing the tail for looping backwards from the tail
+        - while the current tail isnt null, return the current data
+        - get the previous node.
+        */
+
+        Node current = _tail;
+        while (current is not null)
+        {
+            yield return current.Data;
+            current = current.Prev;
+        }
+         // replace this line with the correct yield return statement(s)
     }
 
     public override string ToString()
