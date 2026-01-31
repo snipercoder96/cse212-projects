@@ -222,7 +222,6 @@ public class LinkedList : IEnumerable<int>
             if (current.Data == oldValue)
             {
                 current.Data = newValue;
-                return;
             }
 
             current = current.Next;
