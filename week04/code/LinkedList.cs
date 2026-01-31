@@ -50,6 +50,7 @@ public class LinkedList : IEnumerable<int>
         if (_head is null)
         {
             _head = newNode;
+            _tail = newNode;
         }
         else
         {
