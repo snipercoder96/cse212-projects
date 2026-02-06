@@ -8,10 +8,14 @@ public class Program
         // with any code or ideas you have that do not directly apply to
         // one of your projects.
 
-        foreach (var kvp in SetsAndMaps.SummarizeDegrees("census.txt"))
+        void SayHello(int count)
         {
-            Console.WriteLine($"{kvp.Key} : {kvp.Value}");
+            if(count <= 0) return;
+            Console.WriteLine("Hello");
+            SayHello(count - 1); // ❌ no base case, never reduces the problem
         }
+
+        SayHello(5);
 
     }
 }

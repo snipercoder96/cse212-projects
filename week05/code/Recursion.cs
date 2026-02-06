@@ -15,7 +15,14 @@ public static class Recursion
     public static int SumSquaresRecursive(int n)
     {
         // TODO Start Problem 1
-        return 0;
+        /*
+        Solution:
+        - check if n <=0, if so return 0
+        - otherwise return the square of n added to the reduced problem (recursive call)
+        */
+        if (n <= 0) return 0;
+
+        return (n * n) + SumSquaresRecursive(n - 1);
     }
 
     /// <summary>
@@ -40,6 +47,28 @@ public static class Recursion
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
+        /*
+        Solution:
+        -  check if the letters are empty, if so return nothing
+        -  get the length and split it according to the size in a variable -> .Split(size).Length
+        - results must be equal to the split of the word
+        */
+
+        // Base case: when we've chosen enough letters 
+        if (size == 0)
+        {
+            results.Add(word);
+            return;
+        }
+        // Recursive case: try each letter 
+        for (int i = 0; i < letters.Length; i++)
+        {
+            char chosen = letters[i];
+            string remaining = letters.Remove(i, 1);
+
+            // Recurse with one less size and updated word 
+            PermutationsChoose(results, remaining, size - 1, word + chosen);
+        }
     }
 
     /// <summary>
@@ -97,9 +126,28 @@ public static class Recursion
             return 4;
 
         // TODO Start Problem 3
+        /*
+        Solution:
+        - initialize the dictionary if remember is null
+        - check if s is already in remember.
+
+        - If yes → return the stored value in a dict.
+
+        - If no → compute it using the recurrence, store it in remember, then return it.
+        */
+
+        if (remember == null) remember = new Dictionary<int, decimal>();
+
+        if (remember.ContainsKey(s))
+        {
+            return remember[s];
+        }
 
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        decimal ways = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
+
+
+        remember[s] = ways;
         return ways;
     }
 
@@ -119,6 +167,32 @@ public static class Recursion
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
+        /*
+        Solution:
+        - if there is no * add to the result list
+        - check if the patterrrn has * in it (IndexOf('*')), if so
+        - create 2 new strings stored in a variable
+        - var 1 → the first * with binary 0, var 2 → the 2nd * with binary 1
+        - recurse the function with the results
+        */
+
+
+        if (!pattern.Contains("*"))
+        {
+            results.Add(pattern);
+            return;
+        }
+
+        int index = pattern.IndexOf('*');
+
+        if (index >= 0) // if the index of * is greater or equal to 0
+        {
+            string withZero = pattern[..index] + '0' + pattern[(index + 1) ..];
+            string withOne = pattern[..index] + '1' + pattern[(index + 1) ..];
+
+            WildcardBinary(withZero, results);
+            WildcardBinary(withOne, results);
+        }
     }
 
     /// <summary>
@@ -129,10 +203,11 @@ public static class Recursion
     {
         // If this is the first time running the function, then we need
         // to initialize the currPath list.
-        if (currPath == null) {
+        if (currPath == null)
+        {
             currPath = new List<ValueTuple<int, int>>();
         }
-        
+
         // currPath.Add((1,2)); // Use this syntax to add to the current path
 
         // TODO Start Problem 5
